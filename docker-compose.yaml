@@ -1,0 +1,66 @@
+---
+version: '3.7'
+services:
+  zookeeper1:
+    image: confluentinc/cp-zookeeper:7.6.2
+    hostname: zookeeper1
+    container_name: zookeeper1
+    ports:
+      - "2181:2181"
+    command: zookeeper-server-start /etc/kafka/zookeeper.properties
+    volumes:
+    - ./zookeeper1:/etc/kafka
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 512M
+
+  kafka1:
+    image: confluentinc/cp-server:7.6.2
+    hostname: kafka1
+    container_name: kafka1
+    depends_on:
+      - zookeeper1
+    command: kafka-server-start /etc/kafka/server.properties
+    volumes:
+    - ./kafka1:/etc/kafka
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1536M
+ 
+  connect:
+    image: confluentinc/cp-server-connect:7.6.2
+    hostname: connect
+    container_name: connect
+    depends_on:
+      - kafka1
+    command: connect-distributed /etc/kafka/connect-distributed.properties
+    ports:
+      - "8083:8083"
+    volumes:
+    - ./connect:/etc/kafka
+    - ./plugins:/usr/share/java
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G        
+ 
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    hostname: clickhouse
+    container_name: clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"  # if you need the native client port
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - clickhouse-config:/etc/clickhouse-server
+
+volumes:
+  clickhouse-data:
+  clickhouse-config:
+

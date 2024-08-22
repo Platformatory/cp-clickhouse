@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Implementation-Title: clickhouse-jdbc
+Build-Tool: Apache Maven 3.8.4 (9b656c72d54e5bacbed989b64718c159fe39b5
+ 37)
+Implementation-Version: clickhouse-jdbc 0.3.2 (revision: 1795272)
+Implementation-Vendor-Id: com.clickhouse
+Specification-Title: JDBC
+Implementation-Vendor: ClickHouse, Inc.
+SCM-Revision: 179527258d8456f10d9ea96512c0345500325eb5
+Multi-Release: true
+Build-Os: Linux (5.11.0-1022-azure; amd64)
+Build-Jdk-Spec: 1.8
+Created-By: Maven Jar Plugin 3.2.0
+Build-Jdk: 1.8.0_312 (Temurin)
+Specification-Version: 4.2
+
