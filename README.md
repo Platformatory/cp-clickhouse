@@ -1,4 +1,3 @@
-=======
 # Clickhouse
 This repo guides you through integrating Confluent Platform with ClickHouse by setting up Kafka to stream data into ClickHouse. It includes configuring Kafka Connect with a ClickHouse Sink Connector for real-time analytics.
 
