@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-# kafka-jmx-grafana-docker
-
-Docker-compose file for Confluent Kafka with configuration mounted as properties files. Brings up Kafka and components with JMX metrics exposed and visualized using Prometheus and Grafana. The environment simulates running Confluent Platform on VMs/Bare metal servers using properties files but using docker containers. The various branches in the repository contains troubleshooting scenarios for Kafka adminstrators to practice production-like issues.
+=======
+# Clickhouse
+This repo guides you through integrating Confluent Platform with ClickHouse by setting up Kafka to stream data into ClickHouse. It includes configuring Kafka Connect with a ClickHouse Sink Connector for real-time analytics.
 
 ## Start
 
 ```
 docker-compose up -d
 ```
-
-## Usage
-
-The docker-compose file brings up 3 node kafka cluster with security enabled. Each service in the compose file has its properties/configurations mounted as a volume from a directory with the same name as the service.
-
-Check the kafka server.properties for more details about the Kafka setup.
 
 ### Health
 
@@ -24,14 +17,6 @@ docker-compose ps -a
 # Ensure there are no Exited services and all containers have the status `Up`
 ```
 
-
-### Client
-
-To use a kafka client, exec into the `kfkclient` container which contains the Kafka CLI and other tools necessary for troubleshooting Kafka. THe `kfkclient` container also contains a properties file mounted to `/opt/client`, which can be used to define the client properties for communicating with Kafka.
-
-```
-docker exec -it kfkclient bash
-```
 
 ### Logs
 
@@ -51,11 +36,4 @@ docker-compose restart <service_name> # docker-compose restart kafka1
 docker-compose up -d --force-recreate <service_name> # docker-compose up -d --force-recreate kafka1
 ```
 
-=======
-# Clickhouse
-This repo guides you through integrating Confluent Platform with ClickHouse by setting up Kafka to stream data into ClickHouse. It includes configuring Kafka Connect with a ClickHouse Sink Connector for real-time analytics.
->>>>>>> origin/main
-# cp-clickhouse
-# cp-clickhouse
-# cp-clickhouse
-# cp-clickhouse
+
