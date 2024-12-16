@@ -1,0 +1,17 @@
+{
+  "name": "voltage",
+  "config": {
+    "connector.class": "com.clickhouse.kafka.connect.ClickHouseSinkConnector",
+    "tasks.max": "1",
+    "hostname": "clickhouse",
+    "port": "8123",
+    "ssl": "false",
+    "username": "default",
+    "password": "",
+    "database": "default",
+    "topics": "household_power_consumption",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}

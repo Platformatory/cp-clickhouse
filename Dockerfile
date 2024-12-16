@@ -1,11 +1,16 @@
-FROM confluentinc/cp-kafka:latest
+FROM confluentinc/cp-kafka-connect:7.6.0
 
-# Copy the Kafka producer script into the container
-COPY produce_data.sh /opt/produce_data.sh
+USER root
 
-# Ensure the script is executable
-RUN chmod +x /opt/produce_data.sh
+RUN yum install -y unzip
 
-# Set the default command to execute the script
-CMD ["/opt/produce_data.sh", "500"]
+USER appuser
 
+RUN curl -LO https://github.com/ClickHouse/clickhouse-kafka-connect/releases/download/v1.2.6/clickhouse-kafka-connect-v1.2.6.zip && \
+  unzip clickhouse-kafka-connect-v1.2.6.zip
+
+USER root
+
+RUN  mv clickhouse-kafka-connect-v1.2.6 /usr/share/java/kafka/clickhouse-kafka-connect-v1.2.6
+
+USER appuser
