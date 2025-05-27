@@ -96,6 +96,9 @@ services:
     ports:
       - "8123:8123"
       - "9000:9000"
+    environment:
+      CLICKHOUSE_USER: plf_user
+      CLICKHOUSE_PASSWORD: v3ry_s3cur3
     volumes:
       - clickhouse-data:/var/lib/clickhouse
       - clickhouse-config:/etc/clickhouse-server
