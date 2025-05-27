@@ -10,14 +10,11 @@ Source code for a demo on ingesting household voltage readings into Kafka and qu
 docker-compose up -d
 ```
 
-2. Start the producer
+Optionally, check if data is produced using the Control Center, which runs on http://localhost:9021
 
-```bash
-# sleep 30
-docker-compose up -d producer
-```
+![Control Center Topic View](assets/controlcenter.png)
 
-3. Create the table in clickhouse
+2. Create the table in clickhouse
 
 ```bash
 docker-compose exec clickhouse clickhouse client --query "CREATE TABLE household_power_consumption (
@@ -34,14 +31,50 @@ docker-compose exec clickhouse clickhouse client --query "CREATE TABLE household
 ORDER BY (readingDate, readingTime);"
 ```
 
-4. Create the connector
+3. Create the connector
 
 ```bash
 ./create_connector.sh
 ```
 
-5. Query from clickhouse
+4. Query from clickhouse
 
 ```bash
 docker-compose exec clickhouse clickhouse client
 ```
+
+5. Query using an MCP client (Ex. Claude Desktop)
+
+Configure the Claude Desktop using the following configuration -
+
+```json
+{
+  "mcpServers": {
+    "mcp-clickhouse": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "mcp-clickhouse",
+        "--python",
+        "3.13",
+        "mcp-clickhouse"
+      ],
+      "env": {
+        "CLICKHOUSE_HOST": "localhost",
+        "CLICKHOUSE_PORT": "8123",
+        "CLICKHOUSE_USER": "plf_user",
+        "CLICKHOUSE_PASSWORD": "v3ry_s3cur3",
+        "CLICKHOUSE_SECURE": "false",
+        "CLICKHOUSE_VERIFY": "false",
+        "CLICKHOUSE_CONNECT_TIMEOUT": "30",
+        "CLICKHOUSE_SEND_RECEIVE_TIMEOUT": "30"
+      }
+    }
+  }
+}
+```
+
+> You might have to replace the path to uv in the above configuration. Run `which uv` to find the path to uv. Install uv, if not already present, using `curl -LsSf https://astral.sh/uv/install.sh | sh`
+
+![Example Query with Claude Desktop](assets/claude_desktop.png)

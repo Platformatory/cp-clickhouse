@@ -37,19 +37,25 @@ with open(file_path, 'r') as file:
         household_name = b'household_1'
 
         message['household'] = "household_1"
+
+        print("Producing ", message)
         
         # Produce a message for each line with the household name as the key
         producer.send(topic, key=household_name, value=message)
         producer.flush()  # Ensure the message is sent
+        print("Produced message")
 
         household_name = b'household_2'
 
         message['household'] = "household_2"
         message['voltage'] = float(message['voltage']) + round(random.uniform(100,200), 3)
 
+        print("Producing ", message)
+
         # Produce a message for each line with the household name as the key
         producer.send(topic, key=household_name, value=message)
         producer.flush()  # Ensure the message is sent
+        print("Produced message")
 
 # Close the producer
 producer.close()

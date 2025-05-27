@@ -38,7 +38,8 @@ services:
   producer:
     build: ./producer
     depends_on:
-      - broker
+      broker:
+        condition: service_healthy
     environment:
       KAFKA_BROKER: broker:29092
 
