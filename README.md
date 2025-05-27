@@ -78,3 +78,5 @@ Configure the Claude Desktop using the following configuration -
 > You might have to replace the path to uv in the above configuration. Run `which uv` to find the path to uv. Install uv, if not already present, using `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 ![Example Query with Claude Desktop](assets/claude_desktop.png)
+
+Reference: This uses the [ClickHouse MCP server](https://github.com/ClickHouse/mcp-clickhouse) from ClickHouse. Further instructions and overview for the MCP Server is in the [README](https://github.com/ClickHouse/mcp-clickhouse/blob/main/README.md) of the ClickHouse MCP Server repository.
